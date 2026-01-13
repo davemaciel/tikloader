@@ -1,85 +1,85 @@
-# TikLoader - Premium TikTok Downloader 🎵
+# TikLoader - Downloader Premium de TikTok 🎵
 
-![TikLoader Banner](public/screen.png) 
-*(If you have a screenshot, place it in public/screen.png and uncomment the line above)*
+![Banner do TikLoader](public/screen.png) 
+*(Se tiver um print da tela, coloque em public/screen.png e descomente a linha acima)*
 
-**TikLoader** is a high-performance web application that allows users to download TikTok videos **without watermarks** in HD quality. 
+**TikLoader** é uma aplicação web de alta performance que permite baixar vídeos do TikTok **sem marca d'água** em qualidade HD.
 
-Built with **Node.js** and a modern **HTML5/Tailwind-inspired** frontend, it mimics the functionality of top-tier services like SSSTik but with a cleaner, ad-free, and premium interface.
-
----
-
-## ✨ Features
-
-- **No Watermarks**: Fetches the direct video file from TikTok's CDN.
-- **HD Quality**: Prioritizes the highest resolution available.
-- **Audio Extraction**: Option to download just the MP3 audio.
-- **Premium UI**: 
-  - Dark Mode by default.
-  - Cyan/Red "Glow" aesthetic matching TikTok's brand.
-  - Fully responsive design (Mobile & Desktop).
-- **Privacy Focused**: No logs, no user tracking.
+Desenvolvido com **Node.js** e um frontend moderno inspirado no **Tailwind**, ele replica a funcionalidade de serviços famosos como SSSTik, mas com uma interface mais limpa, sem anúncios e design premium.
 
 ---
 
-## 🚀 Deployment (Render.com)
+## ✨ Recursos
 
-This project is ready to be deployed on Render. Follow these steps:
+- **Sem Marca d'água**: Pega o arquivo de vídeo direto dos servidores (CDN) do TikTok.
+- **Qualidade HD**: Prioriza sempre a maior resolução disponível.
+- **Extração de Áudio**: Opção para baixar apenas o MP3.
+- **Interface Premium**: 
+  - Modo Escuro (Dark Mode) por padrão.
+  - Estética "Glow" em Ciano/Vermelho seguindo a marca do TikTok.
+  - Totalmente responsivo (Funciona em Celular e PC).
+- **Privacidade**: Sem logs, sem rastreamento de usuário.
 
-1.  **Push this repository to GitHub/GitLab**.
-2.  Go to [Render Dashboard](https://dashboard.render.com/).
-3.  Click **New +** -> **Web Service**.
-4.  Connect your repository.
-5.  **Configure the settings**:
+---
+
+## 🚀 Como Fazer o Deploy (Render.com)
+
+Este projeto está pronto para subir no Render. Siga os passos:
+
+1.  **Suba este repositório no seu GitHub** (`github.com/davemaciel`).
+2.  Vá para o [Painel do Render](https://dashboard.render.com/).
+3.  Clique em **New +** -> **Web Service**.
+4.  Conecte o seu repositório.
+5.  **Configure as opções**:
     - **Runtime**: `Node`
     - **Build Command**: `npm install`
     - **Start Command**: `npm start`
-6.  Click **Create Web Service**.
+6.  Clique em **Create Web Service**.
 
-That's it! Your downloader will be live in minutes.
+Pronto! Seu downloader estará online em minutos.
 
 ---
 
-## 🛠️ Local Development
+## 🛠️ Rodando Localmente
 
-To run this project on your local machine:
+Para rodar o projeto na sua máquina:
 
 ```bash
-# 1. Clone the repo
-git clone https://github.com/your-username/tikloader.git
+# 1. Clone o repositório
+git clone https://github.com/davemaciel/tikloader.git
 
-# 2. Install dependencies
+# 2. Instale as dependências
 cd tikloader
 npm install
 
-# 3. Start the server
+# 3. Inicie o servidor
 npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Abra [http://localhost:3000](http://localhost:3000) no seu navegador.
 
 ---
 
-## ⚙️ API Endpoint
+## ⚙️ Endpoint da API
 
 ### `POST /api/convert`
 
-- **Body**: `{ "url": "https://vm.tiktok.com/..." }`
-- **Response**:
+- **Corpo (Body)**: `{ "url": "https://vm.tiktok.com/..." }`
+- **Resposta**:
   ```json
   {
     "success": true,
-    "author": "User Name",
+    "author": "Nome do Usuário",
     "thumbnail": "https://...",
     "links": [
-      { "text": "Without watermark", "href": "..." },
-      { "text": "Download MP3", "href": "..." }
+      { "text": "Sem marca d'água", "href": "..." },
+      { "text": "Baixar MP3", "href": "..." }
     ]
   }
   ```
 
 ---
 
-## ⚠️ Disclaimer
+## ⚠️ Aviso Legal
 
-This project is for educational purposes only. This tool is not affiliated with, authorized, maintained, sponsored, or endorsed by TikTok or any of its affiliates or subsidiaries.
+Este projeto é apenas para fins educacionais. Esta ferramenta não é afiliada, autorizada, mantida, patrocinada ou endossada pelo TikTok ou qualquer uma de suas afiliadas.
