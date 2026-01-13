@@ -399,13 +399,29 @@
 
                 // Update UI with data
                 thumb.src = data.thumbnail || '';
-                author.innerText = data.author || 'Usuário TikTok';
+
+                // Author logic: Clean up and ensure @ is present only once
+                let authorText = data.author || 'Usuário TikTok';
+                authorText = authorText.replace('@', ''); // remove existing @
+                author.innerText = '@' + authorText;
 
                 data.links.forEach(link => {
                     const a = document.createElement('a');
-                    a.href = link.href;
+
+                    // Logic to use PROXY for custom filename
+                    // Encode the target URL to pass as a query param
+                    const targetUrl = encodeURIComponent(link.href);
+                    const isAudio = link.text.toLowerCase().includes('mp3') || link.text.toLowerCase().includes('audio');
+                    const fileType = isAudio ? 'mp3' : 'mp4';
+
+                    // Route through our local proxy
+                    // Example: /api/proxy?url=...&name=dave&type=mp4
+                    a.href = `/api/proxy?url=${targetUrl}&name=${authorText}&type=${fileType}`;
+
+
                     a.innerHTML = `<span class="material-symbols-outlined text-[18px] mr-2">download</span> ${link.text}`;
-                    a.target = '_blank';
+                    // Important: remove target=_blank because we want to trigger the download directly via Content-Disposition
+                    // a.target = '_blank'; 
 
                     // Tailwind classes for buttons
                     let btnClass = "w-full h-11 border rounded-lg text-sm font-semibold flex items-center justify-center hover:scale-[1.02] active:scale-[0.98] transition-all group mb-2 ";

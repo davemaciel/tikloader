@@ -70,13 +70,26 @@ app.post('/api/convert', async (req, res) => {
             }
         });
 
-        // Try multiple selectors for the thumbnail
+        // Improved Thumbnail Extraction
         let thumb = $('.result_overlay_img img').attr('src');
         if (!thumb) thumb = $('.result_overlay img').attr('src');
-        if (!thumb) thumb = $('img.u-round').attr('src'); // Common variant
-        if (!thumb) thumb = $('img').first().attr('src'); // Fallback to first image
+        if (!thumb) thumb = $('img.u-round').attr('src');
+        if (!thumb) thumb = $('img.result_author_image').attr('src');
 
-        const author = $('.result_author').text().trim();
+        // Sometimes thumb is in style attribute
+        if (!thumb) {
+            const style = $('.result_overlay').attr('style');
+            if (style && style.includes('url(')) {
+                thumb = style.match(/url\(['"]?(.*?)['"]?\)/)[1];
+            }
+        }
+
+        // Improved Author Extraction
+        let author = $('.result_author').text().trim();
+        if (!author) author = $('h2.main_text').text().trim();
+        if (!author) author = $('.result_author_name').text().trim();
+        // Fallback: try to find any text near the avatar
+        if (!author) author = $('.result_overlay_details').text().trim();
 
         if (downloadLinks.length === 0) {
             // Sometimes it returns a slide or error
@@ -94,6 +107,40 @@ app.post('/api/convert', async (req, res) => {
     } catch (error) {
         console.error('Error:', error.message);
         res.status(500).json({ error: 'Failed to process request: ' + error.message });
+    }
+});
+
+// Proxy endpoint to handle file renaming
+app.get('/api/proxy', async (req, res) => {
+    const { url, name, type } = req.query;
+
+    if (!url) {
+        return res.status(400).send('URL missing');
+    }
+
+    try {
+        const response = await axios({
+            method: 'GET',
+            url: url,
+            responseType: 'stream',
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            }
+        });
+
+        // Determine filename
+        const timestamp = Date.now();
+        const ext = type === 'mp3' ? 'mp3' : 'mp4';
+        const filename = `tikloader_${name || 'video'}_${timestamp}.${ext}`;
+
+        res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+        res.setHeader('Content-Type', response.headers['content-type']);
+
+        response.data.pipe(res);
+
+    } catch (error) {
+        console.error('Proxy Error:', error.message);
+        res.status(500).send('Download failed: ' + error.message);
     }
 });
 
