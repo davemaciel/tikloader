@@ -1,0 +1,18 @@
+# TikTok Downloader (Local Clone)
+
+This is a local version of a TikTok video downloader that mimics the functionality of online services like SSSTik.
+
+## How it works
+1. acts as a proxy server running on your machine.
+2. It fetches the necessary session tokens from the download service.
+3. It sends the video link to get the "clean" video URL (direct from TikTok's servers).
+4. It presents them in a nice UI.
+
+## How to run
+1. Open a terminal in this folder.
+2. Run `npm install` (Already done for you!).
+3. Run `npm start`.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Troubleshooting
+If it stops working, the service might have updated their protection (Cloudflare, etc.). This is a proof-of-concept.

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TikTok Downloader - Rápido e Grátis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#25F4EE", // TikTok Cyan
+              secondary: "#FE2C55", // TikTok Red/Pink
+              "neon-purple": "#A855F7",
+              "neon-blue": "#3B82F6",
+              "bg-dark": "#0D0F12",
+              "card-dark": "#16181C",
+              "input-dark": "#242830",
+              "button-dark": "#2A2E35",
+              "glow-purple": "#4c1d95", // Deep purple for glow
+              "glow-blue": "#1e3a8a", // Deep blue for glow
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            boxShadow: {
+              'neon-cyan': '0 0 15px rgba(37, 244, 238, 0.3)',
+              'neon-purple': '0 0 20px rgba(168, 85, 247, 0.4)',
+              'subtle-border': '0 0 0 1px rgba(255,255,255,0.05)',
+            },
+            backgroundImage: {
+               'gradient-tiktok': 'linear-gradient(to right, #25F4EE, #FE2C55)',
+               'gradient-button': 'linear-gradient(135deg, #3B82F6, #9333EA)',
+            }
+          },
+        },
+      };
+    </script>
+<style>
+        body {
+            background-color: #0D0F12;
+            color: white;
+        }
+        .ambient-glow {
+            position: fixed;
+            width: 80vw;
+            height: 80vh;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        .glow-left { 
+            top: -20%; 
+            left: -20%; 
+            background: radial-gradient(circle, var(--tw-color-glow-blue) 0%, transparent 70%); 
+        }
+        .glow-right { 
+            top: 20%; 
+            right: -20%; 
+            background: radial-gradient(circle, var(--tw-color-glow-purple) 0%, transparent 70%); 
+        }
+        .text-glow {
+            text-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+        }
+        html { scroll-behavior: smooth; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0D0F12; }
+        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #505a6b; }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased relative overflow-x-hidden selection:bg-neon-purple selection:text-white flex flex-col">
+<div class="ambient-glow glow-left" style="background: radial-gradient(circle, #3B82F6 0%, transparent 70%);"></div>
+<div class="ambient-glow glow-right" style="background: radial-gradient(circle, #9333EA 0%, transparent 70%);"></div>
+<nav class="w-full px-6 py-8 flex justify-between items-center max-w-7xl mx-auto z-50">
+<div class="flex items-center gap-2 opacity-90 hover:opacity-100 transition-opacity cursor-pointer group">
+<span class="material-symbols-outlined text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple text-3xl font-bold" style="-webkit-text-stroke: 1px transparent;">download_for_offline</span>
+<span class="font-bold text-xl tracking-tight text-white">Tik<span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple">Loader</span></span>
+</div>
+<div class="hidden md:flex gap-8 items-center text-sm font-medium text-gray-400">
+<a class="hover:text-white transition-colors" href="#how-to">Como usar</a>
+<a class="hover:text-white transition-colors" href="#features">Recursos</a>
+<a class="hover:text-white transition-colors" href="#faq">FAQ</a>
+</div>
+</nav>
+<main class="flex-grow flex flex-col items-center pt-12 md:pt-20 px-4 relative z-10 w-full max-w-4xl mx-auto">
+<div class="text-center mb-10 w-full">
+<h1 class="font-extrabold text-5xl md:text-7xl mb-4 tracking-tight text-white relative inline-block">
+<span class="text-glow drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">TikTok</span> <span class="text-white drop-shadow-[0_0_15px_rgba(147,51,234,0.5)]">Downloader</span>
+</h1>
+<p class="text-gray-400 text-sm md:text-lg font-medium tracking-wide max-w-2xl mx-auto">
+            Baixe vídeos sem marca d'água. Rápido e Grátis.
+        </p>
+</div>
+<div class="w-full max-w-2xl mx-auto mb-10">
+<div class="bg-[#15171a]/80 backdrop-blur-sm p-2 rounded-2xl border border-white/10 flex items-center shadow-2xl transition-all focus-within:border-neon-purple/50 focus-within:ring-1 focus-within:ring-neon-purple/20">
+<input class="flex-1 bg-transparent border-none text-white placeholder-gray-500 focus:ring-0 text-sm md:text-base px-4 font-medium h-12" placeholder="Cole o link do TikTok aqui" type="text"/>
+<button class="bg-gradient-button hover:opacity-90 text-white font-bold text-sm px-8 h-12 rounded-xl transition-all shadow-lg shadow-purple-900/20 flex items-center justify-center tracking-wide">
+                Baixar
+            </button>
+</div>
+</div>
+<div class="w-full max-w-sm mx-auto bg-[#16181C]/90 backdrop-blur-md rounded-2xl border border-white/10 p-5 shadow-2xl animate-fade-in-up">
+<div class="flex gap-4 items-start mb-6">
+<div class="w-16 h-20 bg-[#2A2E35] rounded-lg overflow-hidden flex-shrink-0 relative group border border-white/5 shadow-inner">
+<img alt="Video thumbnail placeholder" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcVwKmHnkN22d-Zv0ENtz0fQzWGC4rj8W8JaU0gAr0Qe3jOm5aOtIAx8aUiEQU7OPGhTYWlXuDb282VIPJNroj3t6HhV37YLCoAu_6gWOLJ5-O5JHlO5MipU-I3sC_p66BRxl62rhQ3ExuzGzxm9JISJcyr9rd52IZ7fluWxZRnVlVNrK-n3lDpVDqoRQ_qVSwIFeWVt9vCD14e2cLMH-TR9_lFZupJI3-kH-tb7GhBhhwUtU6t-7z39PGYqs1vmdC8hsCotwSbzc"/>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
+<span class="material-symbols-outlined text-white text-2xl drop-shadow-lg">play_circle</span>
+</div>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-center h-20">
+<h3 class="font-bold text-white text-base truncate">Usuário TikTok</h3>
+<p class="text-xs text-gray-400 mt-1 flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-green-500 inline-block animate-pulse"></span>
+                    Pronto para baixar
+                </p>
+</div>
+</div>
+<div class="space-y-3">
+<button class="w-full h-11 bg-[#2A2E35] hover:bg-[#343940] border border-white/5 hover:border-neon-blue/30 rounded-lg text-sm font-semibold text-white transition-all flex items-center justify-center hover:scale-[1.02] active:scale-[0.98] group">
+<span class="material-symbols-outlined text-[18px] mr-2 text-neon-blue group-hover:text-white transition-colors">water_drop</span>
+                Sem marca d'água
+            </button>
+<button class="w-full h-11 bg-[#2A2E35] hover:bg-[#343940] border border-white/5 hover:border-neon-purple/30 rounded-lg text-sm font-semibold text-white transition-all flex items-center justify-center hover:scale-[1.02] active:scale-[0.98] group">
+<span class="material-symbols-outlined text-[18px] mr-2 text-neon-purple group-hover:text-white transition-colors">music_note</span>
+                Baixar MP3
+            </button>
+</div>
+</div>
+</main>
+<section class="py-24 relative z-10 w-full border-t border-white/5 mt-20 bg-[#0D0F12]/50 backdrop-blur-sm" id="features">
+<div class="max-w-6xl mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="font-bold text-3xl text-white mb-4">Por que usar o TikLoader?</h2>
+<p class="text-gray-500 max-w-xl mx-auto">A ferramenta mais avançada para salvar seu conteúdo favorito instantaneamente.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-[#131518] p-8 rounded-2xl border border-white/5 hover:border-neon-blue/30 transition-all hover:shadow-[0_0_20px_rgba(59,130,246,0.1)] group">
+<div class="w-12 h-12 rounded-full bg-blue-500/10 border border-neon-blue/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-neon-blue text-2xl">water_drop</span>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">Sem Marca d'água</h3>
+<p class="text-sm text-gray-400 leading-relaxed">Baixe vídeos em qualidade HD sem o logo irritante do TikTok ou sobreposição de usuário.</p>
+</div>
+<div class="bg-[#131518] p-8 rounded-2xl border border-white/5 hover:border-purple-500/30 transition-all hover:shadow-[0_0_20px_rgba(168,85,247,0.1)] group">
+<div class="w-12 h-12 rounded-full bg-purple-500/10 border border-neon-purple/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-neon-purple text-2xl">all_inclusive</span>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">Downloads Ilimitados</h3>
+<p class="text-sm text-gray-400 leading-relaxed">Salve quantos vídeos precisar. Sem limites diários, sem restrições, totalmente grátis.</p>
+</div>
+<div class="bg-[#131518] p-8 rounded-2xl border border-white/5 hover:border-cyan-400/30 transition-all hover:shadow-[0_0_20px_rgba(34,211,238,0.1)] group">
+<div class="w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-400/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-cyan-400 text-2xl">bolt</span>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">Super Rápido</h3>
+<p class="text-sm text-gray-400 leading-relaxed">Nossos servidores otimizados garantem conversão e velocidades de download relâmpago.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 relative z-10 w-full bg-[#101215]" id="how-to">
+<div class="max-w-6xl mx-auto px-6">
+<h2 class="font-bold text-3xl text-white mb-16 text-center">
+            Como baixar vídeo do TikTok?
+        </h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+<div class="hidden md:block absolute top-12 left-[16%] right-[16%] h-px bg-gradient-to-r from-transparent via-white/10 to-transparent border-t border-dashed border-gray-700"></div>
+<div class="flex flex-col items-center text-center relative z-10">
+<div class="w-24 h-24 rounded-full bg-[#1A1D21] border border-white/5 flex items-center justify-center mb-6 shadow-lg group hover:border-neon-blue/50 transition-colors">
+<span class="font-bold text-3xl text-neon-blue group-hover:scale-110 transition-transform duration-300">1</span>
+</div>
+<h4 class="text-lg font-bold text-white mb-2">Encontre um Vídeo</h4>
+<p class="text-sm text-gray-400 max-w-xs">Abra o app do TikTok, encontre o vídeo que você gosta e clique em "Compartilhar".</p>
+</div>
+<div class="flex flex-col items-center text-center relative z-10">
+<div class="w-24 h-24 rounded-full bg-[#1A1D21] border border-white/5 flex items-center justify-center mb-6 shadow-lg group hover:border-purple-500/50 transition-colors">
+<span class="font-bold text-3xl text-purple-500 group-hover:scale-110 transition-transform duration-300">2</span>
+</div>
+<h4 class="text-lg font-bold text-white mb-2">Copie o Link</h4>
+<p class="text-sm text-gray-400 max-w-xs">Selecione "Copiar Link" no menu para salvar a URL na sua área de transferência.</p>
+</div>
+<div class="flex flex-col items-center text-center relative z-10">
+<div class="w-24 h-24 rounded-full bg-[#1A1D21] border border-white/5 flex items-center justify-center mb-6 shadow-lg group hover:border-cyan-400/50 transition-colors">
+<span class="font-bold text-3xl text-cyan-400 group-hover:scale-110 transition-transform duration-300">3</span>
+</div>
+<h4 class="text-lg font-bold text-white mb-2">Cole e Baixe</h4>
+<p class="text-sm text-gray-400 max-w-xs">Cole o link na caixa acima e clique em Baixar.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 relative z-10 w-full border-t border-white/5 bg-[#0D0F12]" id="faq">
+<div class="max-w-3xl mx-auto px-6">
+<h2 class="font-bold text-3xl text-white mb-10 text-center">Perguntas Frequentes</h2>
+<div class="space-y-4">
+<details class="group bg-[#15171a] rounded-xl border border-white/5 overflow-hidden">
+<summary class="flex justify-between items-center font-medium cursor-pointer list-none p-5 text-gray-200 hover:text-neon-blue transition-colors">
+<span>Preciso pagar para baixar vídeos do TikTok?</span>
+<span class="transition-transform group-open:rotate-180">
+<span class="material-symbols-outlined">expand_more</span>
+</span>
+</summary>
+<div class="text-gray-400 text-sm p-5 pt-0 leading-relaxed border-t border-white/5 mt-2">
+                    Não! Nosso serviço é completamente gratuito. Não pedimos pagamentos ou assinaturas. Somos mantidos por anúncios mínimos para manter os servidores funcionando.
+                </div>
+</details>
+<details class="group bg-[#15171a] rounded-xl border border-white/5 overflow-hidden">
+<summary class="flex justify-between items-center font-medium cursor-pointer list-none p-5 text-gray-200 hover:text-neon-blue transition-colors">
+<span>Preciso instalar extensões?</span>
+<span class="transition-transform group-open:rotate-180">
+<span class="material-symbols-outlined">expand_more</span>
+</span>
+</summary>
+<div class="text-gray-400 text-sm p-5 pt-0 leading-relaxed border-t border-white/5 mt-2">
+                    Absolutamente não. Você só precisa de um link. Visite nosso site em qualquer navegador (Chrome, Safari, Firefox) e pronto.
+                </div>
+</details>
+<details class="group bg-[#15171a] rounded-xl border border-white/5 overflow-hidden">
+<summary class="flex justify-between items-center font-medium cursor-pointer list-none p-5 text-gray-200 hover:text-neon-blue transition-colors">
+<span>Onde os vídeos são salvos?</span>
+<span class="transition-transform group-open:rotate-180">
+<span class="material-symbols-outlined">expand_more</span>
+</span>
+</summary>
+<div class="text-gray-400 text-sm p-5 pt-0 leading-relaxed border-t border-white/5 mt-2">
+                    Os vídeos geralmente são salvos na pasta "Downloads" do seu dispositivo, seja no celular ou no PC.
+                </div>
+</details>
+<details class="group bg-[#15171a] rounded-xl border border-white/5 overflow-hidden">
+<summary class="flex justify-between items-center font-medium cursor-pointer list-none p-5 text-gray-200 hover:text-neon-blue transition-colors">
+<span>Posso baixar apenas o MP3?</span>
+<span class="transition-transform group-open:rotate-180">
+<span class="material-symbols-outlined">expand_more</span>
+</span>
+</summary>
+<div class="text-gray-400 text-sm p-5 pt-0 leading-relaxed border-t border-white/5 mt-2">
+                    Sim, fornecemos uma opção para baixar a faixa de áudio (MP3) separadamente do vídeo.
+                </div>
+</details>
+</div>
+</div>
+</section>
+<footer class="bg-[#0A0C0E] border-t border-white/5 py-10 relative z-10 w-full">
+<div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="font-bold text-lg text-white">Tik<span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple">Loader</span></span>
+</div>
+<div class="flex gap-6 text-xs font-medium text-gray-500">
+<a class="hover:text-neon-blue transition-colors" href="#">Política de Privacidade</a>
+<a class="hover:text-neon-blue transition-colors" href="#">Termos de Serviço</a>
+<a class="hover:text-neon-blue transition-colors" href="#">Contato</a>
+</div>
+<div class="text-xs text-gray-600">
+            © 2024 TikLoader. Todos os direitos reservados.
+        </div>
+</div>
+<div class="max-w-7xl mx-auto px-6 mt-4 text-center text-[10px] text-gray-700">
+        Não somos afiliados ao TikTok, Douyin ou Bytedance.
+    </div>
+</footer>
+
+</body></html>

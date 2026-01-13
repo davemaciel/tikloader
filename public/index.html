@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>TikTok Downloader - Rápido e Grátis</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#00f2ea", // TikTok Cyan
+                        secondary: "#ff0050", // TikTok Red/Pink
+                        "neon-purple": "#A855F7",
+                        "neon-blue": "#3B82F6",
+                        "bg-dark": "#0D0F12",
+                        "card-dark": "#16181C",
+                        "input-dark": "#242830",
+                        "button-dark": "#2A2E35",
+                    },
+                    fontFamily: {
+                        sans: ["Inter", "sans-serif"],
+                    },
+                    backgroundImage: {
+                        'gradient-button': 'linear-gradient(135deg, #00f2ea, #00c2bb)',
+                    }
+                },
+            },
+        };
+    </script>
+    <style>
+        body {
+            background-color: #0D0F12;
+            color: white;
+        }
+
+        .ambient-glow {
+            position: fixed;
+            width: 80vw;
+            height: 80vh;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.25;
+            pointer-events: none;
+        }
+
+        .glow-left {
+            top: -20%;
+            left: -20%;
+            background: radial-gradient(circle, rgba(0, 242, 234, 0.8) 0%, transparent 70%);
+        }
+
+        .glow-right {
+            top: 20%;
+            right: -20%;
+            background: radial-gradient(circle, rgba(255, 0, 80, 0.6) 0%, transparent 70%);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(0, 242, 234, 0.4);
+        }
+
+        .loader {
+            display: none;
+            margin: 1rem auto;
+        }
+
+        .spinner {
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top-color: #00f2ea;
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0D0F12;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #374151;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #505a6b;
+        }
+    </style>
+</head>
+
+<body
+    class="min-h-screen font-sans antialiased relative overflow-x-hidden selection:bg-primary selection:text-black flex flex-col">
+
+    <!-- Background Glows -->
+    <div class="ambient-glow glow-left"></div>
+    <div class="ambient-glow glow-right"></div>
+
+    <!-- Nav -->
+    <nav class="w-full px-6 py-8 flex justify-between items-center max-w-7xl mx-auto z-50">
+        <div class="flex items-center gap-2 opacity-90 hover:opacity-100 transition-opacity cursor-pointer group">
+            <span
+                class="material-symbols-outlined text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary text-3xl font-bold"
+                style="-webkit-text-stroke: 1px transparent;">download_for_offline</span>
+            <span class="font-bold text-xl tracking-tight text-white">Tik<span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Loader</span></span>
+        </div>
+        <div class="hidden md:flex gap-8 items-center text-sm font-medium text-gray-400">
+            <a class="hover:text-white transition-colors" href="#how-to">Como usar</a>
+            <a class="hover:text-white transition-colors" href="#features">Recursos</a>
+            <a class="hover:text-white transition-colors" href="#faq">FAQ</a>
+        </div>
+    </nav>
+
+    <main class="flex-grow flex flex-col items-center pt-12 md:pt-20 px-4 relative z-10 w-full max-w-4xl mx-auto">
+        <div class="text-center mb-10 w-full">
+            <h1 class="font-extrabold text-5xl md:text-7xl mb-4 tracking-tight text-white relative inline-block">
+                <span class="text-glow drop-shadow-[0_0_15px_rgba(0,242,234,0.3)]">TikTok</span> <span
+                    class="text-white drop-shadow-[0_0_15px_rgba(255,0,80,0.3)]">Downloader</span>
+            </h1>
+            <p class="text-gray-400 text-sm md:text-lg font-medium tracking-wide max-w-2xl mx-auto">
+                Baixe vídeos sem marca d'água. Rápido e Grátis.
+            </p>
+        </div>
+
+        <!-- Input Area -->
+        <div class="w-full max-w-2xl mx-auto mb-10">
+            <div
+                class="bg-[#15171a]/80 backdrop-blur-sm p-2 rounded-2xl border border-white/10 flex items-center shadow-2xl transition-all focus-within:border-primary/50 focus-within:ring-1 focus-within:ring-primary/20">
+                <input id="urlInput"
+                    class="flex-1 bg-transparent border-none text-white placeholder-gray-500 focus:ring-0 text-sm md:text-base px-4 font-medium h-12"
+                    placeholder="Cole o link do TikTok aqui" type="text" autocomplete="off" />
+                <button id="downloadBtn" onclick="processVideo()"
+                    class="bg-gradient-to-r from-primary to-[#00c2bb] hover:opacity-90 text-black font-bold text-sm px-8 h-12 rounded-xl transition-all shadow-lg shadow-cyan-900/20 flex items-center justify-center tracking-wide">
+                    Baixar
+                </button>
+            </div>
+            <div class="loader" id="loader">
+                <div class="spinner"></div>
+            </div>
+            <div id="errorMsg" class="text-secondary text-center mt-4 hidden font-medium"></div>
+        </div>
+
+        <!-- Result Area (Hidden by default) -->
+        <div id="resultArea"
+            class="hidden w-full max-w-sm mx-auto bg-[#16181C]/90 backdrop-blur-md rounded-2xl border border-white/10 p-5 shadow-2xl animate-fade-in-up">
+            <div class="flex gap-4 items-start mb-6">
+                <div
+                    class="w-16 h-20 bg-[#2A2E35] rounded-lg overflow-hidden flex-shrink-0 relative group border border-white/5 shadow-inner">
+                    <img id="videoThumb" referrerpolicy="no-referrer" alt="Video thumbnail"
+                        class="w-full h-full object-cover opacity-80" src="" />
+                </div>
+                <div class="flex-1 min-w-0 flex flex-col justify-center h-20">
+                    <h3 id="videoAuthor" class="font-bold text-white text-base truncate">@User</h3>
+                    <p class="text-xs text-gray-400 mt-1 flex items-center gap-1">
+                        <span class="w-2 h-2 rounded-full bg-green-500 inline-block animate-pulse"></span>
+                        Pronto para baixar
+                    </p>
+                </div>
+            </div>
+
+            <div class="space-y-3" id="downloadLinksContainer">
+                <!-- Links injected here -->
+            </div>
+        </div>
+    </main>
+
+    <section class="py-24 relative z-10 w-full border-t border-white/5 mt-20 bg-[#0D0F12]/50 backdrop-blur-sm"
+        id="features">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-bold text-3xl text-white mb-4">Por que usar o TikLoader?</h2>
+                <p class="text-gray-500 max-w-xl mx-auto">A ferramenta mais avançada para salvar seu conteúdo favorito
+                    instantaneamente.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div
+                    class="bg-[#131518] p-8 rounded-2xl border border-white/5 hover:border-primary/30 transition-all hover:shadow-[0_0_20px_rgba(0,242,234,0.1)] group">
+                    <div
+                        class="w-12 h-12 rounded-full bg-cyan-500/10 border border-primary/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-primary text-2xl">water_drop</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Sem Marca d'água</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Baixe vídeos em qualidade HD sem o logo irritante
+                        do TikTok.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div
+                    class="bg-[#131518] p-8 rounded-2xl border border-white/5 hover:border-secondary/30 transition-all hover:shadow-[0_0_20px_rgba(255,0,80,0.1)] group">
+                    <div
+                        class="w-12 h-12 rounded-full bg-pink-500/10 border border-secondary/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-secondary text-2xl">all_inclusive</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Downloads Ilimitados</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Salve quantos vídeos precisar. Sem limites diários.
+                    </p>
+                </div>
+                <!-- Feature 3 -->
+                <div
+                    class="bg-[#131518] p-8 rounded-2xl border border-white/5 hover:border-green-400/30 transition-all hover:shadow-[0_0_20px_rgba(74,222,128,0.1)] group">
+                    <div
+                        class="w-12 h-12 rounded-full bg-green-500/10 border border-green-400/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-green-400 text-2xl">bolt</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Super Rápido</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Velocidade de download relâmpago.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How To Section (Restored) -->
+    <section class="py-24 relative z-10 w-full bg-[#101215]" id="how-to">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="font-bold text-3xl text-white mb-16 text-center">
+                Como baixar vídeo do TikTok?
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+                <div
+                    class="hidden md:block absolute top-12 left-[16%] right-[16%] h-px bg-gradient-to-r from-transparent via-white/10 to-transparent border-t border-dashed border-gray-700">
+                </div>
+                <!-- Step 1 -->
+                <div class="flex flex-col items-center text-center relative z-10">
+                    <div
+                        class="w-24 h-24 rounded-full bg-[#1A1D21] border border-white/5 flex items-center justify-center mb-6 shadow-lg group hover:border-primary/50 transition-colors">
+                        <span
+                            class="font-bold text-3xl text-primary group-hover:scale-110 transition-transform duration-300">1</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-2">Encontre um Vídeo</h4>
+                    <p class="text-sm text-gray-400 max-w-xs">Abra o app do TikTok, encontre o vídeo que você gosta e
+                        clique em "Compartilhar".</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="flex flex-col items-center text-center relative z-10">
+                    <div
+                        class="w-24 h-24 rounded-full bg-[#1A1D21] border border-white/5 flex items-center justify-center mb-6 shadow-lg group hover:border-secondary/50 transition-colors">
+                        <span
+                            class="font-bold text-3xl text-secondary group-hover:scale-110 transition-transform duration-300">2</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-2">Copie o Link</h4>
+                    <p class="text-sm text-gray-400 max-w-xs">Selecione "Copiar Link" no menu para salvar a URL na sua
+                        área de transferência.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="flex flex-col items-center text-center relative z-10">
+                    <div
+                        class="w-24 h-24 rounded-full bg-[#1A1D21] border border-white/5 flex items-center justify-center mb-6 shadow-lg group hover:border-green-400/50 transition-colors">
+                        <span
+                            class="font-bold text-3xl text-green-400 group-hover:scale-110 transition-transform duration-300">3</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-2">Cole e Baixe</h4>
+                    <p class="text-sm text-gray-400 max-w-xs">Cole o link na caixa acima e clique em Baixar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section (Restored) -->
+    <section class="py-24 relative z-10 w-full border-t border-white/5 bg-[#0D0F12]" id="faq">
+        <div class="max-w-3xl mx-auto px-6">
+            <h2 class="font-bold text-3xl text-white mb-10 text-center">Perguntas Frequentes</h2>
+            <div class="space-y-4">
+                <details class="group bg-[#15171a] rounded-xl border border-white/5 overflow-hidden">
+                    <summary
+                        class="flex justify-between items-center font-medium cursor-pointer list-none p-5 text-gray-200 hover:text-primary transition-colors">
+                        <span>Preciso pagar para baixar vídeos do TikTok?</span>
+                        <span class="transition-transform group-open:rotate-180">
+                            <span class="material-symbols-outlined">expand_more</span>
+                        </span>
+                    </summary>
+                    <div class="text-gray-400 text-sm p-5 pt-0 leading-relaxed border-t border-white/5 mt-2">
+                        Não! Nosso serviço é completamente gratuito. Não pedimos pagamentos ou assinaturas. Somos
+                        mantidos por anúncios mínimos para manter os servidores funcionando.
+                    </div>
+                </details>
+                <details class="group bg-[#15171a] rounded-xl border border-white/5 overflow-hidden">
+                    <summary
+                        class="flex justify-between items-center font-medium cursor-pointer list-none p-5 text-gray-200 hover:text-primary transition-colors">
+                        <span>Preciso instalar extensões?</span>
+                        <span class="transition-transform group-open:rotate-180">
+                            <span class="material-symbols-outlined">expand_more</span>
+                        </span>
+                    </summary>
+                    <div class="text-gray-400 text-sm p-5 pt-0 leading-relaxed border-t border-white/5 mt-2">
+                        Absolutamente não. Você só precisa de um link. Visite nosso site em qualquer navegador (Chrome,
+                        Safari, Firefox) e pronto.
+                    </div>
+                </details>
+                <details class="group bg-[#15171a] rounded-xl border border-white/5 overflow-hidden">
+                    <summary
+                        class="flex justify-between items-center font-medium cursor-pointer list-none p-5 text-gray-200 hover:text-primary transition-colors">
+                        <span>Onde os vídeos são salvos?</span>
+                        <span class="transition-transform group-open:rotate-180">
+                            <span class="material-symbols-outlined">expand_more</span>
+                        </span>
+                    </summary>
+                    <div class="text-gray-400 text-sm p-5 pt-0 leading-relaxed border-t border-white/5 mt-2">
+                        Os vídeos geralmente são salvos na pasta "Downloads" do seu dispositivo, seja no celular ou no
+                        PC.
+                    </div>
+                </details>
+                <details class="group bg-[#15171a] rounded-xl border border-white/5 overflow-hidden">
+                    <summary
+                        class="flex justify-between items-center font-medium cursor-pointer list-none p-5 text-gray-200 hover:text-primary transition-colors">
+                        <span>Posso baixar apenas o MP3?</span>
+                        <span class="transition-transform group-open:rotate-180">
+                            <span class="material-symbols-outlined">expand_more</span>
+                        </span>
+                    </summary>
+                    <div class="text-gray-400 text-sm p-5 pt-0 leading-relaxed border-t border-white/5 mt-2">
+                        Sim, fornecemos uma opção para baixar a faixa de áudio (MP3) separadamente do vídeo.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Restored) -->
+    <footer class="bg-[#0A0C0E] border-t border-white/5 py-10 relative z-10 w-full">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <span class="font-bold text-lg text-white">Tik<span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Loader</span></span>
+            </div>
+            <div class="flex gap-6 text-xs font-medium text-gray-500">
+                <a class="hover:text-primary transition-colors" href="#">Política de Privacidade</a>
+                <a class="hover:text-primary transition-colors" href="#">Termos de Serviço</a>
+                <a class="hover:text-primary transition-colors" href="#">Contato</a>
+            </div>
+            <div class="text-xs text-gray-600">
+                © 2024 TikLoader. Todos os direitos reservados.
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 mt-4 text-center text-[10px] text-gray-700">
+            Não somos afiliados ao TikTok, Douyin ou Bytedance.
+        </div>
+    </footer>
+
+    <!-- Script Logic (Preserved) -->
+    <script>
+        async function processVideo() {
+            const input = document.getElementById('urlInput');
+            const btn = document.getElementById('downloadBtn');
+            const loader = document.getElementById('loader');
+            const resultArea = document.getElementById('resultArea');
+            const errorMsg = document.getElementById('errorMsg');
+            const linksContainer = document.getElementById('downloadLinksContainer');
+            const thumb = document.getElementById('videoThumb');
+            const author = document.getElementById('videoAuthor');
+
+            const url = input.value.trim();
+            if (!url) return;
+
+            // Reset UI
+            btn.disabled = true;
+            btn.innerText = 'Buscando...';
+            btn.classList.add('opacity-70');
+            loader.style.display = 'block';
+            resultArea.classList.add('hidden');
+            errorMsg.classList.add('hidden');
+            linksContainer.innerHTML = '';
+
+            try {
+                const response = await fetch('/api/convert', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok || data.error) {
+                    throw new Error(data.error || 'Falha ao buscar vídeo');
+                }
+
+                // Update UI with data
+                thumb.src = data.thumbnail || '';
+                author.innerText = data.author || 'Usuário TikTok';
+
+                data.links.forEach(link => {
+                    const a = document.createElement('a');
+                    a.href = link.href;
+                    a.innerHTML = `<span class="material-symbols-outlined text-[18px] mr-2">download</span> ${link.text}`;
+                    a.target = '_blank';
+
+                    // Tailwind classes for buttons
+                    let btnClass = "w-full h-11 border rounded-lg text-sm font-semibold flex items-center justify-center hover:scale-[1.02] active:scale-[0.98] transition-all group mb-2 ";
+
+                    if (link.text.toLowerCase().includes('without watermark') || link.text.toLowerCase().includes('sem marca')) {
+                        // Primary button style
+                        btnClass += "bg-primary text-black border-primary hover:bg-[#00d5ce]";
+                    } else if (link.text.toLowerCase().includes('mp3')) {
+                        // MP3 button style
+                        btnClass += "bg-[#2A2E35] text-white border-white/5 hover:border-secondary/50 hover:text-secondary";
+                    } else {
+                        // Default
+                        btnClass += "bg-[#2A2E35] text-white border-white/5 hover:bg-[#343940]";
+                    }
+
+                    a.className = btnClass;
+                    linksContainer.appendChild(a);
+                });
+
+                resultArea.classList.remove('hidden');
+
+            } catch (err) {
+                errorMsg.innerText = err.message;
+                errorMsg.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'Baixar';
+                btn.classList.remove('opacity-70');
+                loader.style.display = 'none';
+            }
+        }
+    </script>
+
+</body>
+
+</html>
