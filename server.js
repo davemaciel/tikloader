@@ -88,8 +88,20 @@ app.post('/api/convert', async (req, res) => {
         let author = $('.result_author').text().trim();
         if (!author) author = $('h2.main_text').text().trim();
         if (!author) author = $('.result_author_name').text().trim();
-        // Fallback: try to find any text near the avatar
-        if (!author) author = $('.result_overlay_details').text().trim();
+        if (!author) author = $('h2').first().text().trim();
+
+        // Fallback: Check image alt tags
+        if (!author) author = $('.result_overlay_img img').attr('alt');
+
+        // Fallback: Regex search for @username in the detailed part of HTML
+        // This is useful if classes change dynamically
+        if (!author) {
+            const bodyText = $('body').text();
+            const match = bodyText.match(/@([a-zA-Z0-9_\.]+)/);
+            if (match) {
+                author = match[0];
+            }
+        }
 
         if (downloadLinks.length === 0) {
             // Sometimes it returns a slide or error
